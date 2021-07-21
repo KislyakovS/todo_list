@@ -35,7 +35,7 @@ class _Body extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => model?.save(),
+        onPressed: () => model?.save(context),
         child: Icon(Icons.done),
       ),
     );
@@ -53,7 +53,7 @@ class _Form extends StatelessWidget {
       autofocus: true,
       decoration: InputDecoration(hintText: '"New Group"'),
       onChanged: (value) => model?.value = value,
-      onEditingComplete: () => model?.save(),
+      onEditingComplete: () => model?.save(context),
     );
   }
 }

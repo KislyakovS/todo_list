@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
 
-class Groups extends StatelessWidget {
+import 'groups_widget_model.dart';
+
+class Groups extends StatefulWidget {
   const Groups({Key? key}) : super(key: key);
+
+  @override
+  _GroupsState createState() => _GroupsState();
+}
+
+class _GroupsState extends State<Groups> {
+  final _model = GroupWidgetModel();
+
+  @override
+  Widget build(BuildContext context) {
+    return GroupWidgetModelProvider(
+      child: _Body(),
+      model: _model,
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +51,14 @@ class _GroupList extends StatefulWidget {
 class __GroupListState extends State<_GroupList> {
   @override
   Widget build(BuildContext context) {
+    final model = GroupWidgetModelProvider.watch(context)?.model;
+
     return ListView.separated(
       itemBuilder: (_, i) => Dismissible(
-        key: Key(i.toString()),
+        key: Key(model?.groups[i].name ?? i.toString()),
         direction: DismissDirection.endToStart,
         onDismissed: (_) {
-          print("Delete");
+          model?.remove(i);
         },
         background: Container(
           color: Colors.red,
@@ -57,7 +80,7 @@ class __GroupListState extends State<_GroupList> {
       separatorBuilder: (_, i) => const Divider(
         height: 1,
       ),
-      itemCount: 100,
+      itemCount: model?.groups.length ?? 0,
     );
   }
 }
@@ -68,8 +91,10 @@ class _Row extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = GroupWidgetModelProvider.read(context)?.model;
+
     return ListTile(
-      title: Text('ToDo list go $index'),
+      title: Text(model?.groups[index].name ?? ''),
       trailing: Icon(Icons.chevron_right),
       onTap: () {},
     );
