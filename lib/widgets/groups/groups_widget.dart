@@ -96,7 +96,7 @@ class _Row extends StatelessWidget {
     return ListTile(
       title: Text(model?.groups[index].name ?? ''),
       trailing: Icon(Icons.chevron_right),
-      onTap: () {},
+      onTap: () => model?.showTasks(context, index),
     );
   }
 }
