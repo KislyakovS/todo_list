@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   final routes = {
     '/groups': (context) => const Groups(),
     '/groups/form': (context) => const GroupForm(),
-    '/groups/tasks': (context) => const Task(),
+    '/groups/tasks': (context) => const TasksWidget(),
     '/groups/tasks/form': (context) => const TaskForm(),
   };
 
